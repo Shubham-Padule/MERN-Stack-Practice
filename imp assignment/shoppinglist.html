@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Product:<input type="text" id="txt1">Price: <input type="text" id="txt2"><br>
+    <input type="button" value="Add" id="btn1">
+    <input type="button" value="Delete" id="btn2">
+    <input type="button" value="Update" id="btn3">
+    <ul id="li1"></ul>
+
+    <script>
+        let list = [];
+
+        function Product(Name, Price) {
+            this.PName = Name;
+            this.PPrice = Price;
+        }
+        let txt1 = document.getElementById("txt1");
+        let txt2 = document.getElementById("txt2");
+
+        let Add = document.getElementById("btn1");
+        let Delete = document.getElementById("btn2");
+        let Update = document.getElementById("btn3");
+
+        Add.addEventListener("click", funAdd, false);
+
+
+        function funAdd() {
+            let txt1 = document.getElementById("txt1").value;
+            let txt2 = document.getElementById("txt2").value;
+
+            let obj1 = new Product(txt1, txt2)
+            list.push(obj1);
+        }
+
+        let u1 = document.getElementById("li1");
+
+        function display() {
+
+
+        }
+    </script>
+
+</body>
+
+</html>

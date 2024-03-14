@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gredient</title>
+</head>
+<style>
+    svg{
+        height: 700px;
+        width: 700px;
+        border: 2px solid black;
+    }
+</style>
+<body>
+
+<svg>
+    <defs>
+        <linearGradient id="grad" x1="0" y1="0" x2="100%" y2="0">
+            <stop offset="10%" stop-color="yellow"></stop>
+            <stop offset="50%" stop-color="white"></stop>
+            <stop offset="90%" stop-color="blue"></stop>
+        </linearGradient>
+        <g id="mypattern">
+            <rect x="100" y="100" width="100" height="40" style="fill:url(#grad);stroke:red"></rect>
+            <circle cx="100" cy="170" r="30" style="fill:orchid;stroke:blue;"></circle>
+        </g>
+    </defs>
+    <use xlink:href="#mypattern"></use>
+    <use xlink:href="#mypattern" transform="translate(120,90)"></use>
+</svg>
+</body>
+</html>

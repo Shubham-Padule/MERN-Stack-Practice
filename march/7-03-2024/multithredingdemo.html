@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="start" onclick="funsend()">
+    
+    <div id="d1"></div>
+    <script>
+        function funsend() {
+            var worker1 = new Worker("worker.js");
+            var worker2 = new Worker("worker.js");
+            
+            var arr1 = [5, 2, 7, 1, 3];
+            var arr2 = [9, 4, 8, 6, 0];
+            
+            worker1.postMessage(arr1);
+            worker2.postMessage(arr2);
+            
+            worker1.onmessage = function(event) {
+                console.log("Sorted array 1:", event.data);
+                worker1.terminate();
+            };
+            
+            worker2.onmessage = function(event) {
+                console.log("Sorted array 2:", event.data);
+                worker2.terminate();
+            };
+        }
+    </script>
+</body>
+</html>

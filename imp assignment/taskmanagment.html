@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #txtName {
+            width: 70%;
+        }
+
+        #ul1, #cartList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .taskItem {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            padding: 8px;
+            align-items: center;
+        }
+
+        .deleteButton {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Task Management System</h1>
+
+    <label for="txtName">Task:</label>
+    <input type="text" id="txtName"><br>
+
+    <input type="button" value="Add Task" id="btnAdd">
+    <input type="button" value="Update Task" id="btnUpdate">
+    <input type="button" value="Delete Task" id="btnDelete">
+
+    <ul id="ul1"></ul>
+
+    <script>
+        var ul = document.getElementById("ul1");
+        ul.addEventListener("click", funClick, false);
+
+        var btnAdd = document.getElementById("btnAdd");
+        btnAdd.addEventListener("click", funAdd, false);
+
+        var btnUpdate = document.getElementById("btnUpdate");
+        btnUpdate.addEventListener("click", funUpdate, false);
+
+        var btnDelete = document.getElementById("btnDelete");
+        btnDelete.addEventListener("click", funDelete, false);
+
+        var tasks = [];
+
+        function Task(name) {
+            this.taskName = name;
+        }
+
+        function funAdd() {
+            var taskName = document.getElementById("txtName").value;
+            var task = new Task(taskName);
+            tasks.push(task);
+            displayTasks();
+            document.getElementById("txtName").value = "";
+        }
+
+        function displayTasks() {
+            var str = "";
+            for (var i = 0; i < tasks.length; i++) {
+                str += "<li class='taskItem'>" + tasks[i].taskName + "<button class='deleteButton'>Delete</button></li>";
+            }
+            ul.innerHTML = str;
+        }
+
+        function funClick(event) {
+            var clickedElement = event.target;
+
+            if (clickedElement.tagName === 'BUTTON') {
+                // Delete button is clicked
+                var taskItem = clickedElement.parentNode;
+                var index = Array.prototype.indexOf.call(ul.children, taskItem);
+                tasks.splice(index, 1);
+                displayTasks();
+            } else {
+                // Task item is clicked
+                var taskName = clickedElement.textContent;
+                document.getElementById("txtName").value = taskName;
+            }
+        }
+
+        function funUpdate() {
+    var updatedTaskName = document.getElementById("txtName").value.trim();
+
+    if (updatedTaskName === "") {
+        alert("Please enter a task name.");
+        return;
+    }
+
+    var selectedTaskItem = findSelectedTaskItem(updatedTaskName);
+
+    if (selectedTaskItem) {
+        selectedTaskItem.querySelector('.taskName').textContent = updatedTaskName;
+        displayTasks();
+        document.getElementById("txtName").value = "";
+    }
+}
+function displayTasks() {
+    var str = "";
+    for (var i = 0; i < tasks.length; i++) {
+        str += "<li class='taskItem'><span class='taskName'>" + tasks[i].taskName + "</span><button class='deleteButton'>Delete</button></li>";
+    }
+    ul.innerHTML = str;
+}
+
+
+function findSelectedTaskItem(taskName) {
+    for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].taskName === taskName) {
+            return ul.children[i];
+        }
+    }
+    return null;
+}
+
+
+        function funDelete() {
+            var selectedIndex = findSelectedIndex(document.getElementById("txtName").value);
+
+            if (selectedIndex !== -1) {
+                tasks.splice(selectedIndex, 1);
+                displayTasks();
+                document.getElementById("txtName").value = "";
+            }
+        }
+
+        function findSelectedIndex(taskName) {
+            for (var i = 0; i < tasks.length; i++) {
+                if (tasks[i].taskName === taskName) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #taskForm {
+      display: none;
+      border: 2px solid #ccc;
+      background-color: #fff;
+      margin-top: 20px;
+      padding: 20px;
+      width: 50%;
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="button"],
+    input[type="radio"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    input[type="button"] {
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+
+    input[type="button"]:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    td:last-child {
+      text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+      color: #007bff;
+      cursor: pointer;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>Task Manager</h2>
+  Subjects:
+  <select id="listSub">
+    <option></option>
+    <option>Angular</option>
+    <option>React</option>
+    <option>Node</option>
+    <option>Php</option>
+  </select><br>
+
+  <input type="button" value="Add" onclick="funAdd()">
+  <input type="button" value="Show" onclick="funShow()">
+  <div id="taskForm">
+    <label for="txtName">Name:</label>
+    <input type="text" id="txtName"><br>
+    <label>Status:</label>
+    <input type="radio" name="status" value="Pending">Pending
+    <input type="radio" name="status" value="Complete">Complete
+    <br>
+    <input type="button" value="Insert" onclick="funInsert()">
+  </div>
+
+  <table id="tbl"></table>
+
+  <script>
+    var taskArr = [];
+
+    function Task(sub, name, st, dt) {
+      this.taskSub = sub;
+      this.taskName = name;
+      this.taskStatus = st;
+      this.taskDt = dt;
+    }
+
+    var d1 = document.getElementById("taskForm");
+
+    function funAdd() {
+      d1.style.display = "block";
+    }
+
+    function funInsert() {
+      var txtSub = document.getElementById("listSub").value;
+      var txtName = document.getElementById("txtName").value;
+      var arr = document.getElementsByName("status");
+      var st = "";
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].checked) {
+          st = arr[i].value;
+        }
+      }
+      var today = new Date().toLocaleDateString();
+      var obj = new Task(txtSub, txtName, st, today);
+      taskArr.push(obj);
+
+      document.getElementById("txtName").value = "";
+      for (i = 0; i < arr.length; i++) {
+        arr[i].checked = false;
+      }
+      document.getElementById("listSub").value = "";
+      d1.style.display = "none";
+    }
+
+    function funShow() {
+      var s1 = "";
+      var sub = document.getElementById("listSub").value;
+      var str = "<tr><th>Subject</th><th>Name</th><th>Status</th><th>Date</th><th>Action</th></tr>";
+      for (i = 0; i < taskArr.length; i++) {
+        if (taskArr[i].taskStatus == "Pending") {
+          s1 = "background-color:red";
+        } else if (taskArr[i].taskStatus == "Complete") {
+          s1 = "background-color:yellowGreen";
+        }
+        if (sub == taskArr[i].taskSub) {
+          str += "<tr style=" + s1 + "><td>" + taskArr[i].taskSub + "</td><td>" + taskArr[i].taskName + "</td><td>" + taskArr[i].taskStatus + "</td><td>" + taskArr[i].taskDt + "</td><td><a href='' onclick=funEditDelete(event)>Edit</a>/<a href='' onclick=funEditDelete(event)>Delete</a></td></tr>";
+        }
+      }
+      document.getElementById("tbl").innerHTML = str;
+    }
+
+    function funEditDelete(event) {
+      event.preventDefault();
+
+      var a = event.target;
+      var td = a.parentNode;
+      var tr = td.parentNode;
+      var tdArr = tr.getElementsByTagName("td");
+
+      var clickedName = tdArr[1].textContent;
+      if (event.target.textContent == "Edit") {
+        for (i = 0; i < taskArr.length; i++) {
+          if (taskArr[i].taskName == clickedName) {
+            taskArr[i].taskStatus = "Complete";
+          }
+        }
+      } else if (event.target.textContent == "Delete") {
+        for (i = 0; i < taskArr.length; i++) {
+          if (taskArr[i].taskName == clickedName) {
+            taskArr.splice(i, 1);
+          }
+        }
+      }
+      funShow();
+    }
+  </script>
+</body>
+</html>

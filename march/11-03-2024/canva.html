@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+    <script>
+        var canvas = document.querySelector("canvas");
+        var ctx = canvas.getContext("2d");
+
+        //Tree
+        ctx.save();
+        ctx.translate(100, 150);
+        drawTree();
+        ctx.restore();
+
+        ctx.save();
+        ctx.translate(140, 100);
+        ctx.scale(1, 0.5);
+        //  ctx.rotate(-5);
+        drawTree();
+        ctx.restore();
+
+        function canopy() {
+            ctx.moveTo(-25, -50);
+            ctx.lineTo(-10, -80);
+            ctx.lineTo(-20, -80);
+            ctx.lineTo(-5, -110);
+            ctx.lineTo(-15, -110);
+            ctx.lineTo(0, -140);
+            ctx.lineTo(15, -110);
+            ctx.lineTo(5, -110);
+            ctx.lineTo(20, -80);
+            ctx.lineTo(10, -80);
+            ctx.lineTo(25, -50);
+            ctx.closePath();
+
+        }
+
+        function drawTree() {
+
+            let grad = ctx.createLinearGradient(-5, -50, 10, 20);
+            grad.addColorStop(0, "red");
+            grad.addColorStop(0.2, "yellow");
+            grad.addColorStop(0.5, "green")
+                //stem
+            ctx.fillStyle = grad;
+            ctx.fillRect(-5, -50, 10, 20);
+            ctx.fillStyle = "green";
+            ctx.strokeStyle = "blue";
+            ctx.lineWidth = "3";
+            ctx.lineJoin = "round"
+            canopy();
+            ctx.fill();
+            ctx.stroke();
+        }
+    </script>
+</body>
+
+</html>

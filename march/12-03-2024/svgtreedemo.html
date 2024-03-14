@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    svg{
+        height: 600px;
+        width: 600px;
+        border: 5px solid black;
+    }
+</style>
+<body>
+    <svg>
+        <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="100%" y2="0">
+                <stop offset="10%" stop-color="yellow"></stop>
+                <stop offset="40%" stop-color="white"></stop>
+                <stop offset="60%" stop-color="blue"></stop>
+            </linearGradient>
+            
+            <rect id="stem" x="-5" y="-50" width="10" height="20"></rect>
+            <path id="canopy" d="M -25, -50
+                                  L  -10, -80
+                                  L  -20, -80
+                                  L -5, -110
+                                  L -15, -110
+                                  L  0, -140
+                                  L  15, -110
+                                  L  5, -110
+                                  L  20, -80
+                                  L  10, -80
+                                  L 25, -50
+                                  Z "></path>
+
+            <g id="tree">
+                <use xlink:href="#stem" style="fill:rgb(122,2,2)"></use>
+                <use xlink:href="#canopy" style="fill:green;stroke:orchid;stroke-width:1px;stroke-linejoin:round"></use>
+            </g>                      
+            <g id="shadow">
+                <use xlink:href="#stem" style="fill:rgba(0,0,0,0.3)"></use>
+                <use xlink:href="#canopy" style="fill:rgba(0,0,0,0.4)"></use>
+            </g>
+        </defs>
+           
+    </svg>
+    
+</body>
+</html>

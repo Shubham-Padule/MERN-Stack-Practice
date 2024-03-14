@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Product Name:<input type="text" id="txt1"> Product Price: <input type="text" id="txt2">
+    <br> <input type="button" value="ADD" onclick="funAdd()"><input type="button" value="Update" onclick="funUpdate()"><input type="button" value="Delete" onclick="funDelete()">
+    <ul id="list"></ul>
+    <script>
+        ul = document.getElementById("list");
+
+        function Product(Name, Price) {
+            this.ProductName = Name;
+            this.ProductPrice = Price;
+        }
+
+        if (localStorage.getItem("list") == null) {
+            var arr = [];
+        } else {
+            var arr = JSON.parse(localStorage.getItem("list"));
+
+        }
+        Display();
+
+
+        function funAdd() {
+            let txtName = document.getElementById("txt1").value
+            let txtPrice = document.getElementById("txt2").value
+            let obj = new Product(txtName, txtPrice);
+            arr.push(obj);
+            console.log(arr);
+            let jobj = JSON.stringify(arr);
+            console.log(jobj);
+            localStorage.setItem("list", jobj)
+            Display();
+            document.getElementById("txt1").value = ""
+            document.getElementById("txt2").value = ""
+        }
+
+        function Display() {
+            let data = JSON.parse(localStorage.getItem("list"));
+            let str = "";
+            for (i = 0; i < data.length; i++) {
+                str += "<li>" + data[i].ProductName + "*" + data[i].ProductPrice + "</li>";
+            }
+            ul.innerHTML = str;
+
+        }
+
+        ul.addEventListener("click", funClick, false)
+
+        function funClick(event) {
+            let x = event.target.textContent;
+            let arr = x.split("*");
+            document.getElementById("txt1").value = arr[0];
+            document.getElementById("txt2").value = arr[1];
+
+        }
+
+        function funUpdate() {
+            let data = JSON.parse(localStorage.getItem("list"));
+            let txtName = document.getElementById("txt1").value
+            let newPrice = document.getElementById("txt2").value
+
+            for (i = 0; i < data.length; i++) {
+                if (data[i].ProductName == txtName) {
+                    data[i].ProductPrice = newPrice;
+                }
+            }
+            localStorage.setItem("list", JSON.stringify(data));
+            Display();
+            document.getElementById("txt1").value = ""
+            document.getElementById("txt2").value = ""
+        }
+
+
+        function funDelete() {
+            let data = JSON.parse(localStorage.getItem("list"));
+            let txtName = document.getElementById("txt1").value;
+            for (i = 0; i < data.length; i++) {
+                if (data[i].ProductName == txtName) {
+                    data.splice(i, 1);
+                }
+            }
+            localStorage.setItem("list", JSON.stringify(data));
+            Display();
+        }
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="start" onclick="funsend()">
+    
+    <div id="d1"></div>
+    <script>
+        var d1 = document.getElementById("d1");
+        var w = new Worker("echo.js");
+        
+        function funsend() {
+            var arr = [1, 2, 3, 4, 5];
+            w.postMessage(arr);
+        }
+        
+        w.onmessage = function(event) {
+            var sortedArr = event.data.sort(function(a, b) {
+                return a - b;
+            });
+            console.log(sortedArr);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Clock</title>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="Ampeross-Qetto-2-Timer.256.png"
+    />
+    <link rel="stylesheet" href="" />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: "Roboto Slab", serif;
+      box-sizing: border-box;
+    }
+    .hero {
+      width: 100%;
+      min-height: 100vh;
+      background-image: linear-gradient(
+        -225deg,
+        #ac32e4 0%,
+        #7918f2 48%,
+        #000000 100%
+      );
+      color: #fff;
+      position: relative;
+    }
+    .conatiner {
+      width: 800px;
+      height: 180px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .clock {
+      height: 100%;
+      width: 100%;
+      background-color: rgba(235, 0, 235, 0.11);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(40px);
+    }
+    .conatiner::before {
+      content: "";
+      width: 180px;
+      height: 180px;
+      background: #f41b75;
+      border-radius: 5px;
+      position: absolute;
+      left: -50px;
+      top: -50px;
+      z-index: -1;
+    }
+    .conatiner::after {
+      content: "";
+      width: 180px;
+      height: 180px;
+      background: #419aff;
+      border-radius: 50%;
+      position: absolute;
+      right: -30px;
+      bottom: -50px;
+      z-index: -1;
+    }
+    .clock span {
+      font-size: 90px;
+      width: 110px;
+      display: inline-block;
+      text-align: center;
+      position: relative;
+    }
+    .clock span::after {
+      font-size: 16px;
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    #hrs::after {
+      content: "Hours";
+    }
+
+    #min::after {
+      content: "Minitus";
+    }
+
+    #sec::after {
+      content: "Seconds";
+    }
+    #ampm {
+      font-size: 50px;
+      color: rgba(243, 243, 243);
+    }
+
+    /* Common styles for both light and dark modes */
+    body {
+      font-family: Arial, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Light mode */
+    body.light-mode {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    /* Dark mode */
+    body.dark-mode {
+      background-color: #333333;
+      color: #ffffff;
+    }
+  </style>
+  <body>
+    <div class="hero">
+      <div class="conatiner">
+        <div class="clock">
+          <span id="hrs">00</span>
+          <span>:</span>
+          <span id="min">00</span>
+          <span>:</span>
+          <span id="sec">00</span>
+          <span id="ampm">AM</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function updateClock() {
+        let currentTime = new Date();
+        let hours = currentTime.getHours();
+        let minutes = currentTime.getMinutes();
+        let seconds = currentTime.getSeconds();
+        let period = hours < 12 ? "AM" : "PM";
+
+        // Convert hours to 12-hour format
+        hours = hours % 12 || 12;
+
+        // Pad single-digit values with leading zero
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+          seconds = "0" + seconds;
+        }
+
+        // Update clock display
+        document.getElementById("hrs").innerHTML = hours;
+        document.getElementById("min").innerHTML = minutes;
+        document.getElementById("sec").innerHTML = seconds;
+        document.getElementById("ampm").innerHTML = period;
+      }
+
+      // Update clock every second
+      setInterval(updateClock, 1000);
+    </script>
+  </body>
+</html>

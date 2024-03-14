@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Sign Up / Sign In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        button {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+       
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to Our Bank</h1>
+    </header>
+
+    <main>
+        <div class="auth-container">
+            <section class="sign-up" id="sign-up">
+                <h2>Sign Up</h2>
+                <form id="signUpForm">
+                    <label for="first-name">First Name:</label>
+                    <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required />
+
+                    <label for="last-name">Last Name:</label>
+                    <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required />
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+                    <label for="phone">Phone No:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+                    <button type="submit">Submit</button>
+                    <button type="reset">Reset</button>
+                </form>
+            </section>
+
+            <section class="sign-in" id="sign-in" style="display: none;">
+                <h2>Sign In</h2>
+                <form id="signInForm">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="login-email" placeholder="Enter your email" required />
+
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="login-password" placeholder="Enter your password"
+                        required />
+
+                    <button type="submit">Log In</button>
+                </form>
+            </section>
+        </div>
+        <div class="auth-links" style="text-align: center;">
+            <a href="#" id="sign-in-link">Sign In</a> | <a href="#" id="sign-up-link">Sign Up</a>
+        </div>
+    </main>
+
+  
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to show the sign-in section and hide the sign-up section
+            function showSignIn() {
+                document.getElementById("sign-up").style.display = "none";
+                document.getElementById("sign-in").style.display = "block";
+            }
+    
+            // Function to show the sign-up section and hide the sign-in section
+            function showSignUp() {
+                document.getElementById("sign-up").style.display = "block";
+                document.getElementById("sign-in").style.display = "none";
+            }
+    
+            // Event listener for the "Sign In" link
+            document.getElementById("sign-in-link").addEventListener("click", function (event) {
+                event.preventDefault();
+                showSignIn();
+            });
+    
+            // Event listener for the "Sign Up" link
+            document.getElementById("sign-up-link").addEventListener("click", function (event) {
+                event.preventDefault();
+                showSignUp();
+            });
+    
+            // Function to handle signup
+            document.getElementById("signUpForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+    
+                var firstName = document.getElementById("first-name").value.trim();
+                var lastName = document.getElementById("last-name").value.trim();
+                var email = document.getElementById("email").value.trim();
+                var phone = document.getElementById("phone").value.trim();
+                var password = document.getElementById("password").value;
+    
+                // Validate email format
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert("Please enter a valid email address.");
+                    return;
+                }
+    
+                // Validate phone number format
+                var phoneRegex = /^\d{10}$/;
+                if (!phoneRegex.test(phone)) {
+                    alert("Please enter a valid 10-digit phone number.");
+                    return;
+                }
+    
+                // Save to local storage
+                localStorage.setItem("firstName", firstName);
+                localStorage.setItem("lastName", lastName);
+                localStorage.setItem("email", email);
+                localStorage.setItem("phone", phone);
+                localStorage.setItem("password", password);
+                alert("Sign up successful!");
+                // Clear the form
+                document.getElementById("signUpForm").reset();
+            });
+    
+            // Function to handle login
+            document.getElementById("signInForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+                var email = document.getElementById("login-email").value.trim();
+                var password = document.getElementById("login-password").value; 
+    
+                var storedEmail = localStorage.getItem("email");
+                var storedPassword = localStorage.getItem("password");
+    
+                // Check if stored email and password match input
+                if (email === storedEmail && password === storedPassword) {
+                    alert("Login successful!");
+                    // Clear the form
+                    document.getElementById("signInForm").reset();
+                } else {
+                    alert("Incorrect email or password.");
+                }
+            });
+        });
+    </script>
+    </body>
+    
+</body>
+
+</html>

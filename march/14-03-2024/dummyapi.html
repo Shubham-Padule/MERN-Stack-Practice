@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action=https://dummyjson.com/products&quot; method="get">
+        <input type="submit" value="get all products">
+    </form>
+    <input type="button" value="getproduct" onclick="funclick()">
+    <table id="d1" border="2"></table>
+    <script>
+        // ajax
+        function funclick(){
+            var obj =new XMLHttpRequest(); 
+            obj.open("get","https://dummyjson.com/products?limit=10&skip=10&select=title,price")
+            obj.send();
+            obj.onreadystatechange=function(){
+                if (obj.readyState==4 && obj.status==200){
+                    var result=JSON.parse(obj.responseText);
+                    console.log(typeof(result));
+                    console.log(result.products[0].title);
+                    display(result.products);
+                }
+            }
+        }
+        function display(arr){
+            var str="<tr><td>id</td><td>title</td><td>price</td><td>image</td></tr>"
+            for(var i=0;i<arr.length;i++){
+                str+="<tr><td>"+arr[i].id+"</td><td>"+arr[i].title+"</td><td>"+arr[i].price+"</td><td><img src='"+arr[i].thumbnail+"'></td></tr>"; 
+            }
+            document.getElementById("d1").innerHTML=str;
+        }
+    </script>
+</body>
+</html>
+3   
