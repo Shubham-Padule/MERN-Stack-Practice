@@ -1,11 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>markshit maker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marksheet Maker</title>
+  <style>
+    body{
+      background-color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    }
+    table {
+  width: 100%;
+    border-collapse: collapse;
+     
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      height: 60px;   
+      font-size: 20px;
+      text-align: center;
+    }
+    th {
+      background-color:rgb(137, 135, 135);
+    }
+    td{
+        background-color:rgb(223, 220, 220);
+    }
+
+
+  </style>
 </head>
 <body>
+  <table id="markSheet">
+    <thead>
+      <tr>
+        <th rowspan="2">Roll No</th>
+        <th rowspan="2">Name</th>
+        <th colspan="3">Subjects</th>
+        <th rowspan="2" onclick="funSort('Total Marks')">Total Marks</th>
+        <th rowspan="2" onclick="funSort('Percentage')">Percentage</th>
+        <th rowspan="2">Year</th>
+      </tr>
+      <tr>
+        <th onclick="funSort('Physics')">Physics</th>
+        <th onclick="funSort('Chemistry')">Chemistry</th>
+        <th onclick="funSort('Maths')">Maths</th>
+      </tr>
+    </thead>
+    <tbody id="markSheetBody">
+    </tbody>
+  </table>
+
+  <script>
+    var stud = [
+      { rollno: 1, name: "shubham", physics: 50, chemistry: 50, maths: 60, yr: 2022 },
+      { rollno: 2, name: "brijesh", physics: 40, chemistry: 50, maths: 70, yr: 2023 },
+      { rollno: 3, name: "omkar", physics: 70, chemistry: 60, maths: 80, yr: 2021 },
+      { rollno: 4, name: "omkar", physics: 60, chemistry: 50, maths: 60, yr: 2021 },
+      { rollno: 5, name: "sohan", physics: 40, chemistry: 80, maths: 50, yr: 2021 }
+    ];
+
+
+
+    var tableBody = document.getElementById('markSheetBody');
+
+//   /total marks
+    function calculateTotalMarks(student) {
+      return student.physics + student.chemistry + student.maths;
+    }
+
+    // calculate percentage
+    function calculatePercentage(totalMarks) {
+      return (totalMarks / 300) * 100;
+    }
+
+    // table row
+    function generateTableRows() {
+        tableBody.innerHTML = ""; 
+
+      for (var i = 0; i < stud.length; i++) {
+        var totalMarks = calculateTotalMarks(stud[i]);
+        var percentage = calculatePercentage(totalMarks).toFixed(2); 
+
+
+        var row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${stud[i].rollno}</td><td>${stud[i].name}</td><td>${stud[i].physics}</td><td>${stud[i].chemistry}</td><td>${stud[i].maths}</td>
+          <td>${totalMarks}</td><td>${percentage}%</td><td>${stud[i].yr}</td>
+        `;
+        tableBody.appendChild(row);
+      }
+    }
+
+    function funSort(column) {
+  if (column === 'Maths') {
+    console.log('Maths');
+    stud.sort(function(a, b) {
+      return b.maths - a.maths; 
+    });
+
+  } else if (column === 'Physics') {
+    console.log('Physics');
+    stud.sort(function(a, b) {
+      return b.Physics- a.Physics;  
+    });
     
+  } else if (column === 'Percentage') {
+    console.log('pecentage');
+    stud.sort(function(a, b) {
+
+      return calculatePercentage(calculateTotalMarks(b)) - calculatePercentage(calculateTotalMarks(a)); 
+    });
+  }
+  generateTableRows();
+}
+
+generateTableRows();
+</script>
 </body>
 </html>

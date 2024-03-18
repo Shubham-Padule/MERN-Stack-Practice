@@ -1,39 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action=https://dummyjson.com/products&quot; method="get">
-        <input type="submit" value="get all products">
+<html>
+  <head>
+<style>
+  img{
+    width:100px;
+    height:100px;
+    border:2px solid green;
+  }
+  
+</style>
+  </head>
+  <body>
+    <form action="https://dummyjson.com/products&quot; method="get">
+      <input type="submit" value="GetAll Products">
     </form>
-    <input type="button" value="getproduct" onclick="funclick()">
-    <table id="d1" border="2"></table>
+    <hr>
+    <input type="button" value="GetProducts" onclick="funClick()">
+    <table id="d1" border=2></table>
+    Search:Id:<input type="text" id="txtId"><br>
+    <input type="button" value="search" onclick="funSearch()">
+    <div id="div1"></div>
     <script>
-        // ajax
-        function funclick(){
-            var obj =new XMLHttpRequest(); 
-            obj.open("get","https://dummyjson.com/products?limit=10&skip=10&select=title,price")
-            obj.send();
-            obj.onreadystatechange=function(){
-                if (obj.readyState==4 && obj.status==200){
-                    var result=JSON.parse(obj.responseText);
-                    console.log(typeof(result));
-                    console.log(result.products[0].title);
-                    display(result.products);
-                }
-            }
+      //ajax
+      function funClick(){
+       var obj=new XMLHttpRequest();
+       obj.open("get","https://dummyjson.com/products?limit=10&skip=10&select=id,title,price,thumbnail&quot;");
+       obj.send();
+       obj.onreadystatechange=function(){
+        if(obj.readyState==4 && obj.status==200){
+          var result=JSON.parse(obj.responseText);
+          console.log(typeof(result));
+          console.log(result.products[0].title);
+          display(result.products);
         }
-        function display(arr){
-            var str="<tr><td>id</td><td>title</td><td>price</td><td>image</td></tr>"
-            for(var i=0;i<arr.length;i++){
-                str+="<tr><td>"+arr[i].id+"</td><td>"+arr[i].title+"</td><td>"+arr[i].price+"</td><td><img src='"+arr[i].thumbnail+"'></td></tr>"; 
-            }
-            document.getElementById("d1").innerHTML=str;
+       }
+      }
+      function display(arr){
+        var str="<tr><td>Id</td><td>Title</td><td>Price</td><td>Image</td></tr>"
+      for(i=0;i<arr.length;i++){
+        str+="<tr><td>"+arr[i].id+"</td><td>"+arr[i].title+"</td><td>"+arr[i].price+"</td><td><img src="+arr[i].thumbnail+"></td></tr>";
+      }
+      document.getElementById("d1").innerHTML=str;
+      }
+      function funSearch(){
+        var txtId=document.getElementById("txtId").value;
+        var obj=new XMLHttpRequest();
+        var result;
+        var url="https://dummyjson.com/product/"+txtId;
+        console.log("url="+url);
+       obj.open("get","https://dummyjson.com/product/"+txtId);
+       obj.send();
+       obj.onreadystatechange=function(){
+        if(obj.readyState==4 && obj.status==200){
+          temp=(obj.responseText);
+          var result=JSON.parse(obj.responseText);
+          document.getElementById("div1").innerHTML=result.id+"<br>"+result.title+"<br>"+result.price+"<br>"+result.rating+"<br><img src="+result.thumbnail+">";
+
         }
+      }
+     
+      }
     </script>
-</body>
+  </body>
 </html>
-3   

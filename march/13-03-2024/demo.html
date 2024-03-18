@@ -1,0 +1,38 @@
+<html>
+  <body>
+    <script>
+      var str="jaavva";
+      var occ=[];
+      for(i=0;i<str.length;i++){
+        var count=1;
+        for(j=i+1;j<str.length;j++){
+          if(str[i]==str[j]){
+            count++;
+            occ[j]=-1;
+          }
+        }
+        if(occ[i]!=-1){
+        occ[i]=count;
+        }
+      }
+      for(i=0;i<str.length;i++){
+        if(occ[i]!=-1)
+        document.write(str[i]+"===="+occ[i]);
+      }
+      var arr = ['history', 'comics', 'history', 'science', 'comics'];
+var res = [];
+
+// Loop through each element of the array
+for (var i = 0; i < arr.length; i++) {
+    // Check if the result array is empty or if the current element is not already in the result array
+    if (res.length === 0 || !res.includes(arr[i])) {
+        // If the condition is met, push the current element to the result array
+        res.push(arr[i]);
+    }
+}
+
+console.log(res);
+
+      </script>
+  </body>
+</html>

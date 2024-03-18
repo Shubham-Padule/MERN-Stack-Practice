@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+        div{
+            padding: 5px;
+            height: auto;
+            width: 100px;
+            border: 2px solid black;
+
+        }
+        div::first-letter{
+            color: red;
+        }
+        div::before{
+            content: open-quote;
+            font-size: 40px;
+            color: blue;
+        }
+        div::after{
+            content: close-quote;
+            font-size: 40px;
+            color:red;
+        }
+    </style>
+  </body>
+  <div>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut porro
+    repudiandae nobis inventore modi sit dolores perspiciatis enim voluptatum
+    neque. Illo harum pariatur reprehenderit impedit. Neque impedit eos sapiente
+    unde!
+  </div>
+</html>
