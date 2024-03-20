@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stunning CSS3</title>
+<style>
+body {
+	margin: 0;
+	padding: 40px;
+	background: url(images/background.gif);
+	font-family: "Segoe UI", Segoe, Calibri, Arial, sans-serif;
+}
+ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.comment {
+	float: left; /* float containment */
+	width: 100%;
+	margin: 0 0 20px 0;
+}
+.comment-meta {
+	float: left;
+	width: 100px;
+	font-size: 84%;
+	text-align: right;
+  border: 2pz solid black;
+}
+h4 {
+	margin: 0;
+	font-size: 100%;
+	font-weight: normal;
+	line-height: 1;
+}
+.comment-meta span {
+	font-size: 84%;
+	color: #666;
+}
+blockquote p {
+	margin: 0;
+	padding: 0 0 10px 0;
+}
+blockquote {
+	margin: 0 0 0 112px;
+	padding: 10px 15px 5px 15px;
+	border-top: 1px solid #fff;
+	background-color: #A6DADC;
+  border-radius: 40px;
+  position: relative;
+  
+
+ }
+ blockquote:hover{
+  transition: all 0.5s ease-in-out;
+  box-shadow: #666 2px 2px 10px;
+  cursor: pointer;
+ }
+ blockquote::first-letter{
+  color: violet;
+  font-size: 50px;
+ }
+ blockquote::before{
+  content: "";
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-color: transparent #A6DADC transparent transparent  ;
+  border-width: 20px 20px 20px 20px;
+  position:absolute;
+  left: -35px;
+ }
+ i:nth-child(2n)blockquote{
+  background: linear-gradient(hsla(125,70,70,0.4),hsla(235,70%50,0.4));
+ }
+ i:nth-child(2n+1)blockquote{
+ 
+  background: linear-gradient(hsla(125,70,70,0.4),hsla(235,70%50,0.4));
+ }
+ img{
+  border-radius: 50%;
+ }
+</style>
+</head>
+
+<body>
+<ol>
+    <li class="comment">
+      <div class="comment-meta">
+          <img src="images/zoe.jpg" width="80" height="80" alt="">
+        <h4>Zoe Gillenwater</h4>
+          <span>February 28, 2010</span>
+      </div>
+        <blockquote>
+          <p>Thanks for posting this article. Lots of good info. The only thing I still don't really understand is why these blog comments are so plain. Why don't you apply some CSS3 and jazz them up?</p>
+        </blockquote>
+    </li>
+    <li class="comment">
+        <div class="comment-meta">
+            <img src="images/cary.jpg" width="80" height="80" alt="">
+            <h4>Cary Gillenwater</h4>
+            <span>March 1, 2010</span>
+      </div>
+        <blockquote>
+          <p>I agree with Zoe. Make it cooler looking.</p>
+        </blockquote>
+    </li>
+    <li class="comment">
+        <div class="comment-meta">
+            <img src="images/faith.jpg" width="80" height="80" alt="">
+            <h4>Faith Mickley</h4>
+            <span>March 1, 2010</span>
+      </div>
+        <blockquote>
+          <p>This is one of my favorite posts so far. Thanks so much for posting it. I agree 100%.</p>
+          <p>Zoe and Cary, I think the comment area is going to look great by the end of the chapter. Just wait and see!</p>
+        </blockquote>
+    </li>
+    <li class="comment">
+        <div class="comment-meta">
+            <img src="images/asha.jpg" width="80" height="80" alt="">
+          <h4>Asha Gillenwater</h4>
+            <span>March 10, 2010</span>
+        </div>
+        <blockquote>
+          <p>I really enjoy reading your blog, but what happens when I put a long URL in my comment text, like this one: http://bitcode.in/blog/about/what_does_browser_testing_mean_today/</p>
+        </blockquote>
+    </li>
+</ol>
+</body>
+</html>
