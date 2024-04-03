@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+      <script type = "text/javascript">
+         
+      </script>
+   </head>
+   <body>
+     
+      <div id="map" style="width:600px; height: 400px;"></div>
+
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjsaVCM9XK8TK_P0LjVjE_5FE664ux5Gk"></script>
+      <script>
+         getLocation();
+         function showLocation(position) {
+            var x= position.coords.latitude;
+            var y = position.coords.longitude;
+          var latlongvalue = position.coords.latitude + ","
+                              + position.coords.longitude;
+             alert(latlongvalue);
+             var map_parameters = { center: {lat: x, lng: y}, zoom: 10 };
+            console.log(map_parameters);
+	var map = new google.maps.Map(document.getElementById('map'), map_parameters);
+
+	var position1 = { position: {lat:x, lng: y}, map: map };
+var position2 = { position: {lat:x, lng: y}, map: map };
+
+	var marker1 = new google.maps.Marker(position1);
+	var marker2 = new google.maps.Marker(position2);
+                     }
+         function errorHandler(err) {
+            if(err.code == 1) {
+               alert("Error: Access is denied!");
+            }else if( err.code == 2) {
+               alert("Error: Position is unavailable!");
+            }
+         }
+         function getLocation(){
+            if(navigator.geolocation){
+               // timeout at 60000 milliseconds (60 seconds)
+               var options = {timeout:60000};
+               navigator.geolocation.getCurrentPosition
+               (showLocation, errorHandler, options);
+            }else{
+               alert("Sorry, browser does not support geolocation!");
+            }
+         }
+       
+      </script>
+   </body>
+</html>

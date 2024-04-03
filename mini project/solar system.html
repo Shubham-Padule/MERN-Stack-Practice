@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar System</title>
+  <style>
+    #solar-system {
+      position: relative;
+      width: 800px;
+      height: 800px;
+      margin: 50px auto;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+    }
+
+    .planet {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: gray;
+      animation: orbit 10s linear infinite;
+    }
+
+    @keyframes orbit {
+      from {
+        transform: rotate(0deg) translateX(200px) rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg) translateX(200px) rotate(-360deg);
+      }
+    }
+
+    #sun {
+      background-color: yellow;
+      z-index: 1;
+    }
+
+    #mercury {
+      left: 300px;
+      animation-duration: 5s;
+    }
+
+    #venus {
+      left: 400px;
+      animation-duration: 8s;
+    }
+
+    #earth {
+      left: 500px;
+      animation-duration: 12s;
+    }
+
+    #mars {
+      left: 600px;
+      animation-duration: 18s;
+    }
+    /* Add more styling as needed */
+  </style>
+</head>
+<body>
+  <div id="solar-system">
+    <div id="sun" class="planet"></div>
+    <div id="mercury" class="planet"></div>
+    <div id="venus" class="planet"></div>
+    <div id="earth" class="planet"></div>
+    <div id="mars" class="planet"></div>
+    <!-- Add more planets as desired -->
+  </div>
+
+  <script>
+    // You can add JavaScript functionality here if needed
+  </script>
+</body>
+</html>

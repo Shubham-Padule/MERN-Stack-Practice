@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .A {
+            width: 100px;
+            height: 100px;
+            border: 2px solid red;
+        }
+    </style>
+    <script src="js/jquery-3.6.2.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#btn1").click(function(){
+                var d1 = $("div");
+                console.log(d1[0]);
+                // $("div").css("background-color","red");
+                // $("div").attr("class","A");
+                // $("div").addClass("A");
+                // $("div").css({"background-color":"red", "color":"yellow"});
+                // console.log($("div").css("color"));
+                d1.html("<b>this is jQuery</b>");
+                // console.log(d1.html());
+                // d1.text("<b>This is jQuery</b>");
+                console.log(d1.text());
+            });
+
+            $("a").click(function(){
+                //<a>case
+                //$("a").attr("href","http://www.bitcode.in&quot;);
+                $("a").attr({
+                    "href": "http://www.bitcode.in",
+                    "title": "bitcode"
+                });
+                console.log($("a").attr("href"));
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>This is div</div>
+    <a href="http://www.google.com">Google</a>
+    <input type="button" value="Click" id="btn1">
+</body>
+</html>
