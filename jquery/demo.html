@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <style>
+            div{
+                width:100px;
+                height:100px;
+                border:2px solid green;
+            }
+            .A{
+             background-color: orchid;
+            }
+            .B{
+                background-color: blueviolet;
+            }
+        </style>
+        <script src="js/jquery-3.6.2.min.js"></script>
+        <script>
+          $(document).ready(function(){
+            var arr=[10,2,20,30];
+           var res= $.inArray(200,arr);
+           console.log(res);
+
+           var res=[];
+
+           $("ul li").each(function(i,val){
+            console.log($(this).text());
+            res.push($(this).text());
+           })
+           console.log(".each="+res);
+
+           var res= $("ul li").map(function(){
+            return $(this).text();
+        })
+        console.log("map="+res);
+
+        //table case
+        $("table tr").click(function(){
+           var arr=$(this).find("td").map(function(){
+                return $(this).text();
+           })
+           console.log(arr[0],arr[1],arr[2]);
+        })
+        //Events
+        //case 1 on() off()
+        // function fun1(){
+        //     $("#btn1").off("click");
+        //     console.log("btn2 is clicked");
+        // }
+        // $("#btn2").on("click",fun1);
+        // $("#btn1").on("click",function(){
+        //     console.log("btn1 is clicked")
+        // })
+            //caze 2 multiple events
+        $("#btn1").on({
+                "click":function(){
+                                    console.log("its clicked!!")
+                                },
+                "mouseover":function(){
+                            $(this).css("background-color","red");
+                                }
+
+                })
+            //one() handler will be executed only once  
+            $("#btn2").one("click",function(){
+                console.log("clicked");
+            })
+            //multiple events one()
+            $("#btn2").one("click mouseover mouseout",function(event){
+                if(event.type=="click"){
+                    console.log("Click");
+                }
+                else if(event.type=="mouseover"){
+                    $(this).css("background-color","red");
+                }
+                else if(event.type=="mouseout"){
+                    $(this).css("background-color","transparent");
+                }
+            })
+
+        })
+       
+
+     
+        </script>
+       
+    </head>
+    <body>
+    <ul>
+    <li>red</li>
+    <li>yellow</li>
+    <li>green</li>
+    </ul>
+    <table border="2">
+        <tr><td>Rollno</td>
+            <td>Name</td>
+            <td>Marks</td>
+        </tr>
+        <tr><td>1</td>
+            <td>AAA</td>
+            <td>10</td>
+        </tr>
+        <tr><td>2</td>
+            <td>BBB</td>
+            <td>20</td>
+        </tr>
+    </table>
+    <input type="button" id="btn1" value="Click">
+    <input type="button" id="btn2" value="Remove">
+    </body>
+</html>
