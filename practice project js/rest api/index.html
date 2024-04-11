@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>REST API Demo</h1>
+    <h2>Add Item</h2>
+    <form id="addItemForm">
+        <input type="text" id="nameInput" placeholder="Name">
+        <input type="text" id="descriptionInput" placeholder="Description">
+        <button type="button" onclick="addItem()">Add Item</button>
+    </form>
+    <h2>Items</h2>
+    <ul id="itemList"></ul>
+
+    <script>
+        function fetchItems() {
+            fetch('/api/items')
+                .then(response => response.json())
+                .then(items => {
+                    const itemList = document.getElementById('itemList');
+                    itemList.innerHTML = '';
+                    items.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = `${item.name}: ${item.description}`;
+                        itemList.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error fetching items:', error));
+        }
+
+        function addItem() {
+            const name = document.getElementById('nameInput').value;
+            const description = document.getElementById('descriptionInput').value;
+
+            fetch('/api/items', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, description })
+            })
+            .then(response => {
+                if (response.ok) {
+                    fetchItems();
+                } else {
+                    throw new Error('Failed to add item');
+                }
+            })
+            .catch(error => console.error('Error adding item:', error));
+        }
+
+        fetchItems();
+    </script>
+</body>
+</html>
