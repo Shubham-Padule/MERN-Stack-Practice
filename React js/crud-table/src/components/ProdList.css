@@ -1,0 +1,25 @@
+/* ProdList.css */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+  
+  .table th {
+    background-color: lightblue;
+    color: black;
+  }
+  
+  .table td {
+    text-align: center;
+  }
+  
+  .table button {
+    cursor: pointer;
+  }
+  
