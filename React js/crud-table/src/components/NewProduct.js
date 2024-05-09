@@ -1,37 +1,50 @@
-//NewProduct.js
+// NewProduct.js
 import { useState } from "react";
-import prodStyle from "./NewProduct.module.css";
 
-function NewProduct(){
+function NewProduct() {
+  const [txtName, setTxtName] = useState("");
+  const [txtPrice, setTxtPrice] = useState("");
 
-    let [txtName,setTxtName]=useState();
-    let [txtPrice,setTxtPrice]=useState();
+  const txtChange = (event) => {
+    setTxtName(event.target.value);
+  };
 
-    let txtChange=(event)=>{
-        setTxtName(event.currentTarget.value);
-       
+  const priceChange = (event) => {
+    setTxtPrice(event.target.value);
+  };
+
+  const funInsert = (event) => {
+    event.preventDefault();
+
+    // Basic validation to ensure both name and price are provided
+    if (txtName.trim() === "" || txtPrice.trim() === "") {
+      alert("Please provide both product name and price.");
+      return;
     }
-    let priceChange=(event)=>{
-        setTxtPrice(event.currentTarget.value);
-    }
 
-    function funInsert(event){
-        event.preventDefault();
-        var obj={prodName:txtName,
-                prodPrice:txtPrice
-                };
+    const obj = {
+      prodName: txtName,
+      prodPrice: txtPrice
+    };
 
-        console.log(txtName,txtPrice);
-    }
-    return(<div>
-            <form>
-                <div>ProdName:<input type="text" onChange={txtChange}></input></div>
-                <div>ProdPrice:<input type="text" onChange={priceChange}></input></div>
-                <div><input type="submit" value="InsertProduct" onClick={funInsert}></input></div>
-            </form>
-       
-        </div>
-        );
+    console.log(obj);
+
+    // You can add further logic to handle insertion of the new product here
+
+    // Clear input fields after insertion
+    setTxtName("");
+    setTxtPrice("");
+  };
+
+  return (
+    <div>
+      <form>
+        <div>ProdName: <input type="text" onChange={txtChange} value={txtName} /></div>
+        <div>ProdPrice: <input type="text" onChange={priceChange} value={txtPrice} /></div>
+        <div><input type="submit" value="InsertProduct" onClick={funInsert} /></div>
+      </form>
+    </div>
+  );
 }
 
 export default NewProduct;
