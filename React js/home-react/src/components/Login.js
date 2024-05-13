@@ -1,6 +1,10 @@
 //LoginForm.js
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import {Cookie} from "js-cookie";
+
+
 function LoginForm() {
   let [txtName, setTxtName] = useState();
   let [txtPassword, setTxtPassword] = useState();
@@ -18,6 +22,10 @@ function LoginForm() {
     for (let i = 0; i < data.length; i++) {
       if (data[i].name == txtName && data[i].password == txtPassword) {
         console.log("Login Successfull");
+        Cookie.set("color", "red",{expires:2});
+        var  cookievalue = Cookie.get("color");
+        console.log(cookievalue);
+        
       }
     }
   };
