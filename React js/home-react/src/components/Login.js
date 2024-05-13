@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {Cookie} from "js-cookie";
-
+import cookie from "js-cookie";
 
 function LoginForm() {
   let [txtName, setTxtName] = useState();
@@ -22,17 +21,23 @@ function LoginForm() {
     for (let i = 0; i < data.length; i++) {
       if (data[i].name == txtName && data[i].password == txtPassword) {
         console.log("Login Successfull");
-        Cookie.set("color", "red",{expires:2});
-        var  cookievalue = Cookie.get("color");
+        cookie.set("color", "red", { expires: 2 });
+        var cookievalue = cookie.get("color");
         console.log(cookievalue);
-        
       }
     }
   };
   let funsearch = (event) => {
-    
-    
+
   };
+
+
+
+
+
+
+  
+
   return (
     <div>
       <form>
@@ -47,11 +52,10 @@ function LoginForm() {
           <input type="submit" value="Login" onClick={funLogin}></input>
         </div>
         <div>
-          <input type="reset" value = "Reset"></input>
-
+          <input type="reset" value="Reset"></input>
         </div>
         <div>
-          <input type="Button" value= "search" onClick={funsearch}></input>
+          <input type="Button" value="search" onClick={funsearch}></input>
         </div>
       </form>
     </div>
