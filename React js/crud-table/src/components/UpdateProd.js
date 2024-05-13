@@ -1,43 +1,34 @@
-// UpdateProd.js
-import { useEffect, useState } from "react";
+//UpdateProd.js
+import { useState,useEffect } from "react";
+function UpdateProd(props){
 
-function UpdateProd(props) {
-  const [txtName, setTxtName] = useState("");
-  const [txtPrice, setTxtPrice] = useState("");
-  const [isReadonly, setIsReadonly] = useState(false);
+ console.log(props.rowData.prodName);
+ let [txtName,setTxtName]=useState();
+ let [txtPrice,setTxtPrice]=useState();
 
-  useEffect(() => {
-    setIsReadonly(false);
-    setTxtName(props.rowdata.prodName);
-    setTxtPrice(props.rowdata.prodPrice);
-  }, [props]);
+ let priceChange=(event)=>{
+ setTxtPrice(event.currentTarget.value);
+ }
+ function funUpdate(event){
+ event.preventDefault();
+ var obj={prodName:txtName,prodPrice:txtPrice};
+ setTxtName("");
+ setTxtPrice("");
+ console.log(obj);
+ props.getUpObj(obj);
 
-  const txtChange = (event) => {
-    setTxtName(event.target.value);
-  };
+ }
 
-  const priceChange = (event) => {
-    setTxtPrice(event.target.value);
-  };
+ useEffect(()=>{
 
-  const funUpdate = (event) => {
-    event.preventDefault();
-    const obj = { prodName: txtName, prodPrice: txtPrice };
-    console.log(obj);
-    props.getupobj(obj);
-    setTxtName("");
-    setTxtPrice("");
-  };
-
-  return (
-    <div>
-      <form>
-        <div>ProdName: <input type="text" onChange={txtChange} value={txtName} readOnly={isReadonly} /></div>
-        <div>ProdPrice: <input type="text" onChange={priceChange} value={txtPrice} readOnly={isReadonly} /></div>
-        <div><input type="submit" value="UpdateProduct" onClick={funUpdate} /></div>
-      </form>
-    </div>
-  );
+ setTxtName(props.rowData.prodName);
+ setTxtPrice(props.rowData.prodPrice);
+ },[props]);
+return(<div>
+ <form >
+ <div>ProdName:<input type="text" defaultValue={txtName} ></input></div>
+ <div>ProdPrice:<input type="text" onChange={priceChange} defaultValue={txtPrice} /></div> <div><input type="submit" value="UpdateProduct" onClick={funUpdate}></input></div>
+ </form>
+</div>)
 }
-
 export default UpdateProd;

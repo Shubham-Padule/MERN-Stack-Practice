@@ -9,7 +9,9 @@ function ProdList(props){
  console.log("prodList");
  //inline
  var myStyle={backgroundColor:"lightblue",width:"100%"};
+
  function funEdit(x){
+
  console.log(x.prodName,x.prodPrice);
  var pr=prompt("Enter new Price:");
  x.prodPrice=pr;
@@ -20,17 +22,19 @@ function ProdList(props){
  props.delProd(x);
  }
 
- 
+ let [upObj,setObj]=useState({});
+ let [rowFlag,setRowFlag]=useState(false);
+ let rowClick=(x)=>{
+ setRowFlag(true);
+ setObj(x);
 
 
- let [upObj, setUpObj] = useState({});
- let [rowflag, setRowFlag] = useState(false);
- let rowClick = (x) => {
-   setRowFlag(true);
-   setUpObj(x);
-   console.log(upObj.prodName);
- };
- 
+ }
+ let getUpObj=(obj)=>{
+ console.log(obj);
+ props.upProd(obj);
+ }
+
  return(
 
  <div >
@@ -54,14 +58,10 @@ href="" onClick={(event)=>{event.preventDefault();funDelete(x);}}>Delete</a></td
  }
 
  </table>
- {/* <div>
- {
- clickFlag && <UpdateProd obj={upObj}/>
- }
- 
- </div> */}
  <div>
-  rowflag && <UpdateProd  rowdata={upObj} getupobj={setUpObj} />
+ {
+ rowFlag && <UpdateProd rowData={upObj} getUpObj={getUpObj}/>
+ }
  </div>
  </div>
  );

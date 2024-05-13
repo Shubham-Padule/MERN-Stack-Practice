@@ -1,33 +1,35 @@
-
-
-function Signupform(){
-    let txtname = useRef();
-    let txtpass = useRef();
-
-
-    let funSignin=()=>{
-        let formData={
-        name:txtname.current.value,
-        password:txtpass.current.value
-    }
+//SignInForm.js
+import { useRef } from "react";
+import { useParams } from "react-router-dom";
+function SignInForm() {
+  let txtName = useRef();
+  let txtPassword = useRef();
+  var arr = [];
+  let funSignIn = () => {
+    let formData = {
+      name: txtName.current.value,
+      password: txtPassword.current.value,
+    };
     console.log(formData);
-    }
-
-
-    return(
+    arr.push(formData);
+    localStorage.setItem("user", JSON.stringify(arr));
+  };
+  return (
+    <div>
+      <form>
         <div>
-            <h1>Signup</h1>
-            <form>
-                <div>
-                <label>Username</label>
-                <input type="text" name="username" id="username" ref={txtname} placeholder="Enter Username" />
-                </div>
-                <div>
-                <label>Password</label>
-                <input type="text" name="password" id="password" ref={txtpass} placeholder="Enter Password" />
-                </div>
-            </form>
+          UserName:
+          <input type="text" ref={txtName} />
         </div>
-    )
-        
+        <div>
+          Password:
+          <input type="text" ref={txtPassword} />
+        </div>
+        <div>
+          <input type="button" value="SignUp" onClick={funSignIn} />
+        </div>
+      </form>
+    </div>
+  );
 }
+export default SignInForm;
