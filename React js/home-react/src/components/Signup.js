@@ -15,6 +15,7 @@ function SignInForm() {
     localStorage.setItem("user", JSON.stringify(arr));
   };
   return (
+    <>
     <div>
       <form>
         <div>
@@ -30,6 +31,7 @@ function SignInForm() {
         </div>
       </form>
     </div>
+    </>
   );
 }
 export default SignInForm;

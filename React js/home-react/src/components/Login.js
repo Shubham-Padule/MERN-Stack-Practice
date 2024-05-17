@@ -42,7 +42,8 @@ function LoginForm() {
     <div>
       <form>
         <div>
-          Name:<input type="text" onChange={txtNameChange}></input>
+          Name:
+          <input type="text" onChange={txtNameChange}></input>
         </div>
         <div>
           Password:
